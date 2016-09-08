@@ -1,14 +1,36 @@
 <head>
-    
+    <style>
+        body {
+            background-color: lightblue;
+        }
+        
+        h1 {
+            color: white;
+            text-align: center;
+        }
+        
+        p {
+            font-family: verdana;
+            font-size: 20px;
+        }
+    </style>
 </head>
+
 <body>
-    
+    <h1>Image Capture</h1>
     <div>
-        
+
+
     </div>
-    
+
+    <div id="my_camera" style="width:320px; height:240px;"></div>
+    <div id="my_image"></div>
+
+    <a href="javascript:void(takeSnapshot())">Take Snapshot</a>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script type="text/javascript" src="">
-        
-    </script>
+    <script src="js/webcam.js"></script>
+    <script type="text/javascript" src="js/track/tracking.js"></script>
+    <script type="text/javascript" src="js/track/face.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 </body>
