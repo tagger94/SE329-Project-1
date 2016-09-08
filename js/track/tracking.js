@@ -29,8 +29,7 @@
    * @param {Function} parentCtor Parent class.
    */
   tracking.inherits = function(childCtor, parentCtor) {
-    function TempCtor() {
-    }
+    function TempCtor() {}
     TempCtor.prototype = parentCtor.prototype;
     childCtor.superClass_ = parentCtor.prototype;
     childCtor.prototype = new TempCtor();
@@ -66,15 +65,15 @@
       video: true,
       audio: !!(opt_options && opt_options.audio)
     }, function(stream) {
-        try {
-          element.src = window.URL.createObjectURL(stream);
-        } catch (err) {
-          element.src = stream;
-        }
-      }, function() {
-        throw Error('Cannot capture user camera.');
+      try {
+        element.src = window.URL.createObjectURL(stream);
       }
-    );
+      catch (err) {
+        element.src = stream;
+      }
+    }, function() {
+      throw Error('Cannot capture user camera.');
+    });
   };
 
   /**
@@ -259,7 +258,8 @@
             // erroneous HAVE_ENOUGH_DATA just before HAVE_CURRENT_DATA state,
             // hence keep trying to read it until resolved.
             context.drawImage(element, 0, 0, width, height);
-          } catch (err) {}
+          }
+          catch (err) {}
           tracking.trackCanvasInternal_(canvas, tracker);
         }
         requestAnimationFrame_();
@@ -285,7 +285,7 @@
 
   if (!navigator.getUserMedia) {
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
-    navigator.mozGetUserMedia || navigator.msGetUserMedia;
+      navigator.mozGetUserMedia || navigator.msGetUserMedia;
   }
 }(window));
 
@@ -393,7 +393,8 @@
     }
     if (opt_event) {
       delete this.events_[opt_event];
-    } else {
+    }
+    else {
       delete this.events_;
     }
     return this;
@@ -519,7 +520,8 @@
   tracking.DisjointSet.prototype.find = function(i) {
     if (this.parent[i] === i) {
       return i;
-    } else {
+    }
+    else {
       return (this.parent[i] = this.find(this.parent[i]));
     }
   };
@@ -1012,7 +1014,7 @@
 
     var length = data.length;
 
-    for (var w = 2; w < length; ) {
+    for (var w = 2; w < length;) {
       var stageSum = 0;
       var stageThreshold = data[w++];
       var nodeLength = data[w++];
@@ -1040,7 +1042,8 @@
             w3 = (rectLeft - rectHeight) + (rectTop + rectHeight - 1) * width;
             w4 = (rectLeft + rectWidth) + (rectTop + rectWidth - 1) * width;
             rectsSum += (tiltedIntegralImage[w1] + tiltedIntegralImage[w2] - tiltedIntegralImage[w3] - tiltedIntegralImage[w4]) * rectWeight;
-          } else {
+          }
+          else {
             // RectSum(r) = SAT(x-1, y-1) + SAT(x+w-1, y+h-1) - SAT(x-1, y+h-1) - SAT(x+w-1, y-1)
             w1 = rectTop * width + rectLeft;
             w2 = w1 + rectWidth;
@@ -1062,7 +1065,8 @@
 
         if (rectsSum * inverseArea < nodeThreshold * standardDeviation) {
           stageSum += nodeLeft;
-        } else {
+        }
+        else {
           stageSum += nodeRight;
         }
       }
