@@ -16,19 +16,28 @@ var database = firebase.database();
 
 function writeUserData() {
     takeSnapshot();
-    //var id = ;
-    var date = "12-34-56";
     var name = document.getElementById("student_name").value;
 
     database.ref('users/Professor/' + document.getElementById("student_id").value).set({
-        //id: id,
         last_seen: getDate(),
-        Name: name
+        name: name
 
     });
 
+    retrieveUserData();
+
 }
 
+function retrieveUserData(){
+
+        var data = firebase.database().ref('users/Professor/' + + document.getElementById("student_id").value);
+        data.on('value', function(snapshot) {
+        // snapshot.val() retrieves all data. To retrieve specific info call snapshot.val().name or snapshot.val().last_seen.
+        //console.log(snapshot.val());
+    });
+}
+
+// borrowed from http://stackoverflow.com/questions/1531093/how-to-get-current-date-in-javascript
 function getDate()
 {
     var today = new Date();
