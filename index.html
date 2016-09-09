@@ -13,23 +13,30 @@
             font-family: verdana;
             font-size: 12px;
         }
+
+        h2 {
+            font-family: verdana;
+            font-size: 16px;
+            font-style: italic;
+        }
     </style>
 </head>
 
 <body>
-    <h1>Student Lookup</h1>
+
     <div style="width:100%;">
-
+        <h1>Student Lookup</h1>
         <div style="float:left; width:30%;">
-            Add New User:
-            <form>
-                Student Name:<br>
-                <input type="text" id="student_name"><br>
-                ID:<br>
-                <input type="text" id="student_id">
+            <div style="float:right; padding: 15px"><h2>Add New User:</h2>
+                <form>
+                    Student Name:<br>
+                    <input type="text" id="student_name"><br>
+                    ID:<br>
+                    <input type="text" id="student_id">
 
-            </form>
-            <button onclick="writeUserData()">Submit</button>
+                </form>
+                <button onclick="writeUserData()">Submit</button></div>
+
         </div>
         <div style="float:right; width:70%; ">
             <button onClick='takeSnapshot()'>Take Snapshot</button>

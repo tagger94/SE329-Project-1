@@ -22,9 +22,29 @@ function writeUserData() {
 
     database.ref('users/Professor/' + document.getElementById("student_id").value).set({
         //id: id,
-        last_seen: date,
+        last_seen: getDate(),
         Name: name
 
     });
+
+}
+
+function getDate()
+{
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd='0'+dd
+    }
+
+    if(mm<10) {
+        mm='0'+mm
+    }
+
+    today = mm+'/'+dd+'/'+yyyy;
+    return today;
 
 }
