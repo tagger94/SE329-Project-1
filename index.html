@@ -11,19 +11,26 @@
         
         p {
             font-family: verdana;
-            font-size: 20px;
+            font-size: 12px;
         }
     </style>
 </head>
 
 <body>
-    <h1>Image Capture</h1>
-    <button onClick='takeSnapshot()'>Take Snapshot</button>
-    <button onClick='attemptToEnroll()'>Enroll Face</button>
-    <button onClick='attemptToCheckIn()'>Check In</button>
+    <h1>Student Lookup</h1>
+    <div align="middle">
+        <button onClick='takeSnapshot()' >Take Snapshot</button>
+        <button onClick='attemptToEnroll()'>Enroll Face</button>
+        <button onClick='attemptToCheckIn()'>Check In</button>
 
-    <div id="my_camera"></div>
-    <div id="my_image"></div>
+        <div id="my_camera"> </div>
+
+        <div id="my_image"></div>
+
+    </div>
+
+</div>
+
 
     <canvas id="my_canvas" />
 
@@ -38,4 +45,7 @@
     <script type="text/javascript" src="js/track/tracking.js"></script>
     <script type="text/javascript" src="js/track/face.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-database.js"></script>
+    <script src="js/Firebase.js"></script>
 </body>
