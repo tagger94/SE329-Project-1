@@ -18,18 +18,23 @@
 
 <body>
     <h1>Image Capture</h1>
-    <div>
+    <button onClick='takeSnapshot()'>Take Snapshot</button>
+    <button onClick='attemptToEnroll()'>Enroll Face</button>
+    <button onClick='attemptToCheckIn()'>Check In</button>
 
-
-    </div>
-
-    <div id="my_camera" style="width:320px; height:240px;"></div>
+    <div id="my_camera"></div>
     <div id="my_image"></div>
 
-    <a href="javascript:void(takeSnapshot())">Take Snapshot</a>
+    <canvas id="my_canvas" />
+
+    <!--<a href="javascript:void(takeSnapshot())">Take Snapshot</a>-->
+
+
+    <p id='my_64'></p>
 
     <script src="js/jquery-3.1.0.min.js"></script>
     <script src="js/webcam.js"></script>
+    <script type="text/javascript" src="js/kairos.js"></script>
     <script type="text/javascript" src="js/track/tracking.js"></script>
     <script type="text/javascript" src="js/track/face.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
