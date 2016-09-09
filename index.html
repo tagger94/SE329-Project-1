@@ -18,14 +18,34 @@
 
 <body>
     <h1>Student Lookup</h1>
+    <div style="width:100%;">
+
+        <div style="float:left; width:30%;">
+            Add New User:
+            <form>
+                Student Name:<br>
+                <input type="text" id="student_name"><br>
+                ID:<br>
+                <input type="text" id="student_id">
+
+            </form>
+            <button onclick="writeUserData()">Submit</button>
+        </div>
+        <div style="float:right; width:70%; ">
+            <button onClick='takeSnapshot()'>Take Snapshot</button>
+
+            <button onClick='attemptToEnroll()' >Enroll Face</button>
+            <button onClick='attemptToCheckIn()'>Check In</button>
+
+            <div id="my_camera"> </div>
+
+            <div id="my_image"></div>
+
+        </div>
+
+    </div>
     <div align="middle">
-        <button onClick='takeSnapshot()' >Take Snapshot</button>
-        <button onClick='attemptToEnroll()'>Enroll Face</button>
-        <button onClick='attemptToCheckIn()'>Check In</button>
 
-        <div id="my_camera"> </div>
-
-        <div id="my_image"></div>
 
     </div>
 
@@ -46,6 +66,6 @@
     <script type="text/javascript" src="js/track/face.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-database.js"></script>
+    <!--<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-database.js"></script>-->
     <script src="js/Firebase.js"></script>
 </body>

@@ -12,4 +12,19 @@ var config = {
 };
 firebase.initializeApp(config);
 
+var database = firebase.database();
 
+function writeUserData() {
+    takeSnapshot();
+    //var id = ;
+    var date = "12-34-56";
+    var name = document.getElementById("student_name").value;
+
+    database.ref('users/Professor/' + document.getElementById("student_id").value).set({
+        //id: id,
+        last_seen: date,
+        Name: name
+
+    });
+
+}
