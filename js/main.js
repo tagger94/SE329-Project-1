@@ -85,7 +85,7 @@ function enrollFace(face, classID, userID) {
 
     var junk = 'data:image/jpeg;base64,';
     var to_use = face.substring(23, face.length);
-    kairos.enroll(face, classID, userID, function(response) {
+    kairos.enroll(to_use, classID, userID, function(response) {
         console.log(response);
     });
 }
