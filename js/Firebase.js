@@ -14,6 +14,7 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
+// Writes data to the database.
 function writeUserData() {
     takeSnapshot();
     var name = document.getElementById("student_name").value;
@@ -24,10 +25,10 @@ function writeUserData() {
 
     });
 
-    retrieveUserData();
 
 }
 
+// Retrieves data from the Database. Organized by student id
 function retrieveUserData(){
 
         var data = firebase.database().ref('users/Professor/' + + document.getElementById("student_id").value);
@@ -35,6 +36,17 @@ function retrieveUserData(){
         // snapshot.val() retrieves all data. To retrieve specific info call snapshot.val().name or snapshot.val().last_seen.
         //console.log(snapshot.val());
     });
+}
+
+// Tested and works. Change the path to the correct student id, then it is good to go.
+function updateLastSeenDate()
+{
+    var newDate = getDate();
+
+    var updates = {};
+    updates['users/Professor/' + document.getElementById("student_id").value + '/last_seen'] = newDate;
+
+    database.ref().update(updates);
 }
 
 // borrowed from http://stackoverflow.com/questions/1531093/how-to-get-current-date-in-javascript
