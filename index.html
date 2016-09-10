@@ -77,21 +77,18 @@
 
 <body>
     <h1>Student Lookup</h1>
-    <div>
-        <div style='float:left' id="cam_space">
-            <button onClick='takeSnapshot()'>Take Snapshot</button>
 
-            <button onClick='attemptToEnroll()'>Enroll Face</button>
-            <button onClick='attemptToCheckIn()'>Check In</button>
-
+    <div style="width: 100%; overflow: hidden;">
+        <div style="float: left;">
             <div id="my_camera"> </div>
-
-            <div id="my_image"></div>
-
         </div>
-
-        <canvas style='' id="my_canvas"></canvas>
+        <div>
+            <div id="my_image"></div>
+            <canvas id="my_canvas"></canvas>
+        </div>
     </div>
+
+    <button onClick='takeSnapshot()'>Take Snapshot</button>
 
     <div class="tabs">
         <ul class="tab-links">
@@ -101,6 +98,10 @@
 
         <div class="tab-content">
             <div id="tab1" class="tab active">
+                <button onClick='attemptToCheckIn()'>Check In</button>
+            </div>
+
+            <div id="tab2" class="tab">
                 <h2>Add New User:</h2>
                 <form>
                     Student Name:<br>
@@ -109,17 +110,11 @@
                     <input type="text" id="student_id">
 
                 </form>
-                <button onclick="writeUserData()">Submit</button>
+                <!--<button onclick="writeUserData()">Submit</button>-->
+                <button onClick='attemptToEnroll()'>Enroll Face</button>
             </div>
-        </div>
 
-        <div id="tab2" class="tab">
-            <p>Tab #2 content goes here!</p>
-            <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst.
-                Ut euismod tempus hendrerit. Morbi ut adipiscing nisi. Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
         </div>
-
-    </div>
     </div>
 
     <script src="js/jquery-3.1.0.min.js"></script>
