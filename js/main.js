@@ -68,8 +68,6 @@ function hasFace(face, onFound, classID, userID) {
     //Submit to Kairos when face is found
     tracker.on('track', function(event) {
         if (!(event.data.length === 0)) {
-            // No targets were detected in this frame.
-
             //POST
             console.log("POST");
             document.getElementById("img_me").style.border = "thick green solid";
