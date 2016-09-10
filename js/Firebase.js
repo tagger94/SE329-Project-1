@@ -15,16 +15,15 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 // Writes data to the database.
-function writeUserData() {
-    takeSnapshot();
-    var name = document.getElementById("student_name").value;
-    var student_id = document.getElementById("student_id").value;
+function writeUserData(student_id, name) {
+    //takeSnapshot();
+    //var name = document.getElementById("student_name").value;
+    //var student_id = document.getElementById("student_id").value;
     if(student_id != "" && student_id != null && name != "" && name != null)
     {
         database.ref('users/Professor/' + student_id).set({
             last_seen: getDate(),
             name: name
-
         });
     }
 
@@ -33,8 +32,8 @@ function writeUserData() {
 }
 
 // Retrieves data from the Database. Organized by student id
-function retrieveUserData(){
-    var student_id = document.getElementById("student_id").value;
+function retrieveUserData(student_id){
+    //var student_id = document.getElementById("student_id").value;
     var data = firebase.database().ref('users/Professor/' + student_id);
     data.on('value', function(snapshot) {
     // snapshot.val() retrieves all data. To retrieve specific info call snapshot.val().name or snapshot.val().last_seen.
@@ -43,9 +42,9 @@ function retrieveUserData(){
 }
 
 // Tested and works. Change the path to the correct student id, then it is good to go.
-function updateLastSeenDate()
+function updateLastSeenDate(student_id)
 {
-    var student_id = document.getElementById("student_id").value;
+    //var student_id = document.getElementById("student_id").value;
 
     var updates = {};
 

@@ -4,44 +4,84 @@
             background-color: lightblue;
         }
         
-        h1 {
-            color: white;
-            text-align: center;
-        }
-        
         p {
             font-family: verdana;
             font-size: 12px;
         }
-
+        
         h2 {
             font-family: verdana;
             font-size: 16px;
             font-style: italic;
         }
+        /*----- Tabs -----*/
+        
+        .tabs {
+            width: 100%;
+            display: inline-block;
+        }
+        /*----- Tab Links -----*/
+        /* Clearfix */
+        
+        .tab-links:after {
+            display: block;
+            clear: both;
+            content: '';
+        }
+        
+        .tab-links li {
+            margin: 0px 5px;
+            float: left;
+            list-style: none;
+        }
+        
+        .tab-links a {
+            padding: 9px 15px;
+            display: inline-block;
+            border-radius: 3px 3px 0px 0px;
+            background: #7FB5DA;
+            font-size: 16px;
+            font-weight: 600;
+            color: #4c4c4c;
+            transition: all linear 0.15s;
+        }
+        
+        .tab-links a:hover {
+            background: #a7cce5;
+            text-decoration: none;
+        }
+        
+        li.active a,
+        li.active a:hover {
+            background: #fff;
+            color: #4c4c4c;
+        }
+        /*----- Content of Tabs -----*/
+        
+        .tab-content {
+            padding: 15px;
+            border-radius: 3px;
+            box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
+            background: #fff;
+        }
+        
+        .tab {
+            display: none;
+        }
+        
+        .tab.active {
+            display: block;
+        }
     </style>
 </head>
 
 <body>
-
-    <div style="width:100%;">
-        <h1>Student Lookup</h1>
-        <div style="float:left; width:30%;">
-            <div style="float:right; padding: 15px"><h2>Add New User:</h2>
-                <form>
-                    Student Name:<br>
-                    <input type="text" id="student_name"><br>
-                    ID:<br>
-                    <input type="text" id="student_id">
-
-                </form>
-                <button onclick="writeUserData()">Submit</button></div>
-
-        </div>
-        <div style="float:right; width:70%; ">
+    <h1>Student Lookup</h1>
+    <div>
+        <div style='float:left' id="cam_space">
             <button onClick='takeSnapshot()'>Take Snapshot</button>
 
-            <button onClick='attemptToEnroll()' >Enroll Face</button>
+            <button onClick='attemptToEnroll()'>Enroll Face</button>
             <button onClick='attemptToCheckIn()'>Check In</button>
 
             <div id="my_camera"> </div>
@@ -50,21 +90,37 @@
 
         </div>
 
-    </div>
-    <div align="middle">
-
-
+        <canvas style='' id="my_canvas"></canvas>
     </div>
 
-</div>
+    <div class="tabs">
+        <ul class="tab-links">
+            <li class="active"><a href="#tab1">Check In</a></li>
+            <li><a href="#tab2">Enroll</a></li>
+        </ul>
 
+        <div class="tab-content">
+            <div id="tab1" class="tab active">
+                <h2>Add New User:</h2>
+                <form>
+                    Student Name:<br>
+                    <input type="text" id="student_name"> <br> ID:
+                    <br>
+                    <input type="text" id="student_id">
 
-    <canvas id="my_canvas" />
+                </form>
+                <button onclick="writeUserData()">Submit</button>
+            </div>
+        </div>
 
-    <!--<a href="javascript:void(takeSnapshot())">Take Snapshot</a>-->
+        <div id="tab2" class="tab">
+            <p>Tab #2 content goes here!</p>
+            <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst.
+                Ut euismod tempus hendrerit. Morbi ut adipiscing nisi. Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
+        </div>
 
-
-    <p id='my_64'></p>
+    </div>
+    </div>
 
     <script src="js/jquery-3.1.0.min.js"></script>
     <script src="js/webcam.js"></script>
@@ -75,4 +131,21 @@
     <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
     <!--<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-database.js"></script>-->
     <script src="js/Firebase.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            jQuery('.tabs .tab-links a').on('click', function(e) {
+                var currentAttrValue = jQuery(this).attr('href');
+
+                // Show/Hide Tabs
+                //jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
+                jQuery('.tabs ' + currentAttrValue).fadeIn(400).siblings().hide();
+
+                // Change/remove current tab to active
+                jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
+
+                e.preventDefault();
+            });
+        });
+    </script>
+
 </body>
