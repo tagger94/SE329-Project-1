@@ -18,33 +18,38 @@ var database = firebase.database();
 function writeUserData() {
     takeSnapshot();
     var name = document.getElementById("student_name").value;
+    var student_id = document.getElementById("student_id").value;
+    if(student_id != "" && student_id != null && name != "" && name != null)
+    {
+        database.ref('users/Professor/' + student_id).set({
+            last_seen: getDate(),
+            name: name
 
-    database.ref('users/Professor/' + document.getElementById("student_id").value).set({
-        last_seen: getDate(),
-        name: name
+        });
+    }
 
-    });
 
 
 }
 
 // Retrieves data from the Database. Organized by student id
 function retrieveUserData(){
-
-        var data = firebase.database().ref('users/Professor/' + + document.getElementById("student_id").value);
-        data.on('value', function(snapshot) {
-        // snapshot.val() retrieves all data. To retrieve specific info call snapshot.val().name or snapshot.val().last_seen.
-        //console.log(snapshot.val());
+    var student_id = document.getElementById("student_id").value;
+    var data = firebase.database().ref('users/Professor/' + student_id);
+    data.on('value', function(snapshot) {
+    // snapshot.val() retrieves all data. To retrieve specific info call snapshot.val().name or snapshot.val().last_seen.
+    console.log(snapshot.val());
     });
 }
 
 // Tested and works. Change the path to the correct student id, then it is good to go.
 function updateLastSeenDate()
 {
-    var newDate = getDate();
+    var student_id = document.getElementById("student_id").value;
 
     var updates = {};
-    updates['users/Professor/' + document.getElementById("student_id").value + '/last_seen'] = newDate;
+
+    updates['users/Professor/' + student_id + '/last_seen'] = getDate();
 
     database.ref().update(updates);
 }
@@ -58,14 +63,14 @@ function getDate()
     var yyyy = today.getFullYear();
 
     if(dd<10) {
-        dd='0'+dd
+        dd = '0' + dd
     }
 
     if(mm<10) {
-        mm='0'+mm
+        mm = '0' + mm
     }
 
-    today = mm+'/'+dd+'/'+yyyy;
+    today = mm + '/' + dd + '/' + yyyy;
     return today;
 
 }
