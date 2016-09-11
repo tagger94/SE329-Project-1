@@ -22,7 +22,6 @@ $(document).ready(function() {
     
             e.preventDefault();
         });
-                
     //Set up webcam's size
     Webcam.set({
         width: 320,
@@ -41,28 +40,22 @@ function takeSnapshot() {
     //var canvas = document.getElementById("my_canvas");
     Webcam.snap(function(data_uri) {
         document.getElementById('my_image').innerHTML = "<img id='img_me' src='" + data_uri + "'/>";
-        //prepareToSend(data_uri + "=\r\n");
         hasFace();
 
     });
-    //prepareToSend(canvas.toDataURL());
-    //var canvas = document.getElementById("my_canvas");
-    //canvas.style.border = "thick red solid";
-    //hasFace(canvas.toDataURL());
+
     document.getElementById("img_me").style.border = "thick red solid";
 
 }
 
 //Attempt to submit image in canvas to Kairos for enrollment
 function attemptToEnroll() {
-    //var canvas = document.getElementById("my_canvas");
 
     hasFace(null, enrollFace, "test1", "tagger94");
 }
 
 //Attempt to submit image in canvas to Kairos for check in
 function attemptToCheckIn() {
-    //var canvas = document.getElementById("my_canvas");
 
     hasFace(null, checkFace, "test1");
 }
@@ -100,13 +93,31 @@ function enrollFace(face, classID, userID) {
     var to_use = face.substring(23, face.length);
     kairos.enroll(to_use, classID, userID, function(response) {
         console.log(response);
+        
     });
 }
 
 function checkFace(face, classID) {
     console.log("submitting face for verification");
-
-    kairos.recognize(face, classID, function(response) {
-        console.log(response);
+    
+    var junk = 'data:image/jpeg;base64,';
+    var to_use = face.substring(23, face.length);
+    kairos.recognize(to_use, classID, function(response) {
+        //printResponse(response);
+        
+        var data = JSON.parse(response.responseText);
+        var user = data.images[0].transaction.subject;
+        console.log(user);
+        
+        var p = document.getElementById('student_info');
+        p.innerHTML = "Student ID: " + user;
     });
+}
+
+function printResponse(response) {
+    console.log(response);
+        var data = JSON.parse(response.responseText);
+        console.log(data);
+        var user = data.images[0].transaction.subject;
+        console.log(user);
 }
