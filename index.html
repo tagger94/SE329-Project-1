@@ -1,78 +1,5 @@
 <head>
-    <style>
-        body {
-            background-color: lightblue;
-        }
-        
-        p {
-            font-family: verdana;
-            font-size: 12px;
-        }
-        
-        h2 {
-            font-family: verdana;
-            font-size: 16px;
-            font-style: italic;
-        }
-        /*----- Tabs -----*/
-        
-        .tabs {
-            width: 100%;
-            display: inline-block;
-        }
-        /*----- Tab Links -----*/
-        /* Clearfix */
-        
-        .tab-links:after {
-            display: block;
-            clear: both;
-            content: '';
-        }
-        
-        .tab-links li {
-            margin: 0px 5px;
-            float: left;
-            list-style: none;
-        }
-        
-        .tab-links a {
-            padding: 9px 15px;
-            display: inline-block;
-            border-radius: 3px 3px 0px 0px;
-            background: #7FB5DA;
-            font-size: 16px;
-            font-weight: 600;
-            color: #4c4c4c;
-            transition: all linear 0.15s;
-        }
-        
-        .tab-links a:hover {
-            background: #a7cce5;
-            text-decoration: none;
-        }
-        
-        li.active a,
-        li.active a:hover {
-            background: #fff;
-            color: #4c4c4c;
-        }
-        /*----- Content of Tabs -----*/
-        
-        .tab-content {
-            padding: 15px;
-            border-radius: 3px;
-            box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
-            background: #fff;
-        }
-        
-        .tab {
-            display: none;
-        }
-        
-        .tab.active {
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
@@ -84,7 +11,7 @@
         </div>
         <div>
             <div id="my_image"></div>
-            <canvas id="my_canvas"></canvas>
+            <!--<canvas id="my_canvas"></canvas>-->
         </div>
     </div>
 
@@ -110,37 +37,19 @@
                     <input type="text" id="student_id">
 
                 </form>
-                <!--<button onclick="writeUserData()">Submit</button>-->
                 <button onClick='attemptToEnroll()'>Enroll Face</button>
             </div>
 
         </div>
     </div>
 
-    <script src="js/jquery-3.1.0.min.js"></script>
-    <script src="js/webcam.js"></script>
-    <script type="text/javascript" src="js/kairos.js"></script>
-    <script type="text/javascript" src="js/track/tracking.js"></script>
-    <script type="text/javascript" src="js/track/face.js"></script>
+    <script src="js/libs/jquery-3.1.0.min.js"></script>
+    <script src="js/libs/webcam.js"></script>
+    <script type="text/javascript" src="js/libs/kairos.js"></script>
+    <script type="text/javascript" src="js/libs/track/tracking.js"></script>
+    <script type="text/javascript" src="js/libs/track/face.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
-    <!--<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-database.js"></script>-->
-    <script src="js/Firebase.js"></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function() {
-            jQuery('.tabs .tab-links a').on('click', function(e) {
-                var currentAttrValue = jQuery(this).attr('href');
-
-                // Show/Hide Tabs
-                //jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
-                jQuery('.tabs ' + currentAttrValue).fadeIn(400).siblings().hide();
-
-                // Change/remove current tab to active
-                jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
-
-                e.preventDefault();
-            });
-        });
-    </script>
+    <script src="js/libs/Firebase.js"></script>
 
 </body>
