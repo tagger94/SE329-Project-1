@@ -94,22 +94,31 @@ function enrollFace(face, classID, userID) {
     var to_use = face.substring(23, face.length);
     kairos.enroll(to_use, classID, userID, function(response) {
         console.log(response);
-        
+
+        var data = JSON.parse(response.responseText);
+        var status = data.images[0].transaction.status;
+        if(status === "success") {
+            var subject_id = data.images[0].transaction.subject_id
+            var student_name = document.getElementById('student_name').value
+            console.log(subject_id + " " + student_name);
+            writeUserData(subject_id, student_name);
+            //send info to database
+        }
     });
 }
 
 function checkFace(face, classID) {
     console.log("submitting face for verification");
-    
+
     var junk = 'data:image/jpeg;base64,';
     var to_use = face.substring(23, face.length);
     kairos.recognize(to_use, classID, function(response) {
         //printResponse(response);
-        
+
         var data = JSON.parse(response.responseText);
         var user = data.images[0].transaction.subject;
         console.log(user);
-        
+
         var p = document.getElementById('student_info');
         p.innerHTML = "Student ID: " + user;
     });
@@ -117,8 +126,8 @@ function checkFace(face, classID) {
 
 function printResponse(response) {
     console.log(response);
-        var data = JSON.parse(response.responseText);
-        console.log(data);
-        var user = data.images[0].transaction.subject;
-        console.log(user);
+    var data = JSON.parse(response.responseText);
+    console.log(data);
+    var user = data.images[0].transaction.subject;
+    console.log(user);
 }
