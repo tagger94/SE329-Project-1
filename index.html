@@ -5,15 +5,19 @@
 <body>
     <h1>Student Lookup</h1>
 
-    <div style="width: 100%; overflow: hidden;">
-        <div style="float: left;">
-            <div id="my_camera"> </div>
-        </div>
-        <div>
-            <div id="my_image"></div>
-            <!--<canvas id="my_canvas"></canvas>-->
-        </div>
-    </div>
+    <table style="width: 100%">
+        <tr>
+            <td style="float: middle">
+                <p>Live Camera:</p>
+                <div id="my_camera" style="float: middle"> </div>
+            </td>
+            <td style="float: middle">
+                <p>Snapshot:</p>
+                <div id="my_image"> </div>
+                <!--<canvas id="my_canvas"></canvas>-->
+            </td>
+        </tr>
+    </table>
 
     <button onClick='takeSnapshot()'>Take Snapshot</button>
 
@@ -26,7 +30,6 @@
         <div class="tab-content">
             <div id="tab1" class="tab active">
                 <button onClick='attemptToCheckIn()'>Check In</button>
-                <p id='student_info'></p>
             </div>
 
             <div id="tab2" class="tab">
@@ -35,7 +38,8 @@
                     Student Name:<br>
                     <input type="text" id="student_name"> <br> ID:
                     <br>
-                    <input type="text" id="student_id">
+                    <input type="text" id="netID">
+
                 </form>
                 <button onClick='attemptToEnroll()'>Enroll Face</button>
             </div>

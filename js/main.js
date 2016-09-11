@@ -5,24 +5,25 @@ global Webcam, tracking, $, Kairos
 //Handles calls to Kairos Server
 var kairos = new Kairos();
 
+var GALLERY = "class1";
+
 $(document).ready(function() {
     // var canvas = document.getElementById("my_canvas");
     // canvas.height = 240;
     // canvas.width = 320;
 
     jQuery('.tabs .tab-links a').on('click', function(e) {
-        var currentAttrValue = jQuery(this).attr('href');
-
-        // Show/Hide Tabs
-        //jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
-        jQuery('.tabs ' + currentAttrValue).fadeIn(400).siblings().hide();
-
-        // Change/remove current tab to active
-        jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
-
-        e.preventDefault();
-    });
-
+            var currentAttrValue = jQuery(this).attr('href');
+    
+            // Show/Hide Tabs
+            //jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
+            jQuery('.tabs ' + currentAttrValue).fadeIn(400).siblings().hide();
+    
+            // Change/remove current tab to active
+            jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
+    
+            e.preventDefault();
+        });
     //Set up webcam's size
     Webcam.set({
         width: 320,
@@ -42,7 +43,6 @@ function takeSnapshot() {
     Webcam.snap(function(data_uri) {
         document.getElementById('my_image').innerHTML = "<img id='img_me' src='" + data_uri + "'/>";
         hasFace();
-
     });
 
     document.getElementById("img_me").style.border = "thick red solid";
@@ -51,14 +51,20 @@ function takeSnapshot() {
 
 //Attempt to submit image in canvas to Kairos for enrollment
 function attemptToEnroll() {
+    //Check that User has correct data in fields
+    
+    //Get that data
+    var user = document.getElementById('netID').value;
 
-    hasFace(null, enrollFace, "test1", "tagger94");
+    //Make call to Kairos
+    hasFace(null, enrollFace, GALLERY, user);
 }
 
 //Attempt to submit image in canvas to Kairos for check in
 function attemptToCheckIn() {
-
-    hasFace(null, checkFace, "test1");
+    
+    //Make call to Kairos
+    hasFace(null, checkFace, GALLERY);
 }
 
 //Check if there is a face. if found set to Kairos
@@ -113,14 +119,31 @@ function checkFace(face, classID) {
     var junk = 'data:image/jpeg;base64,';
     var to_use = face.substring(23, face.length);
     kairos.recognize(to_use, classID, function(response) {
-        //printResponse(response);
 
+        //Convert data to object
         var data = JSON.parse(response.responseText);
-        var user = data.images[0].transaction.subject;
-        console.log(user);
+        console.log(data);
 
-        var p = document.getElementById('student_info');
-        p.innerHTML = "Student ID: " + user;
+        //Verify user was found
+        if (data.images[0].transaction.success != "success") {
+            //Failure
+            console.log("ERROR");
+        }
+        else {
+            //User found
+
+            //Get user from object
+            var user = data.images[0].transaction.subject;
+
+            //Print to DOM the user info
+            retrieveUserData(user);
+            var p = document.getElementById('student_info');
+            p.innerHTML = "Student ID: " + user;
+
+            //Check user in
+            updateLastSeenDate(user);
+        }
+
     });
 }
 
