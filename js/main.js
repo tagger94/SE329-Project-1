@@ -37,30 +37,17 @@ $(document).ready(function() {
     document.getElementById("my_image").style.border = "thick black solid";
     document.getElementById("my_image").style.width = "320";
     document.getElementById("my_image").style.height = "240";
-
-    if (!Webcam.getElementById === undefined) {
-        //Attach webcam to DOM element
-        Webcam.attach('#my_camera');
-    }
-    else {
-        alert("No Camera Found!");
-    }
+    Webcam.attach('#my_camera');
 });
 
 
 //Saves webcam image to a canvas
 function takeSnapshot() {
-    //var canvas = document.getElementById("my_canvas");
-    if (!Webcam.getElementById === undefined) {
-        Webcam.snap(function(data_uri) {
-            document.getElementById('my_image').innerHTML = "<img id='img_me' src='" + data_uri + "'/>";
-            document.getElementById("img_me").style.border = "thick red solid";
-            hasFace();
-        });
-    }
-    else {
-        alert("No Camera!");
-    }
+    Webcam.snap(function(data_uri) {
+        document.getElementById('my_image').innerHTML = "<img id='img_me' src='" + data_uri + "'/>";
+        document.getElementById("img_me").style.border = "thick red solid";
+        hasFace();
+    });
 }
 
 //Attempt to submit image in canvas to Kairos for enrollment
