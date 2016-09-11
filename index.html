@@ -3,22 +3,21 @@
 </head>
 
 <body>
-        <h1>Student Lookup</h1>
+    <h1>Student Lookup</h1>
 
-    <div style="width: 100%; overflow: hidden; margin: 0 auto; text-align: center">
-        <table><tr>
-            <tc><div style="float: left;">
+    <table style="width: 100%">
+        <tr>
+            <td style="float: middle">
                 <p>Live Camera:</p>
-                <div id="my_camera"> </div>
-            
-        </tc></div>
-        <div><tc>
-            <p>Snapshot:</p>
-            <div id="my_image"></div>
-            <!--<canvas id="my_canvas"></canvas>-->
-        </tc></div>
-        </tr></table>
-    </div>
+                <div id="my_camera" style="float: middle"> </div>
+            </td>
+            <td style="float: middle">
+                <p>Snapshot:</p>
+                <div id="my_image"> </div>
+                <!--<canvas id="my_canvas"></canvas>-->
+            </td>
+        </tr>
+    </table>
 
     <button onClick='takeSnapshot()'>Take Snapshot</button>
 
