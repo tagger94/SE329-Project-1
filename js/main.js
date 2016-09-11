@@ -13,17 +13,17 @@ $(document).ready(function() {
     // canvas.width = 320;
 
     jQuery('.tabs .tab-links a').on('click', function(e) {
-            var currentAttrValue = jQuery(this).attr('href');
-    
-            // Show/Hide Tabs
-            //jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
-            jQuery('.tabs ' + currentAttrValue).fadeIn(400).siblings().hide();
-    
-            // Change/remove current tab to active
-            jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
-    
-            e.preventDefault();
-        });
+        var currentAttrValue = jQuery(this).attr('href');
+
+        // Show/Hide Tabs
+        //jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
+        jQuery('.tabs ' + currentAttrValue).fadeIn(400).siblings().hide();
+
+        // Change/remove current tab to active
+        jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
+
+        e.preventDefault();
+    });
     //Set up webcam's size
     Webcam.set({
         width: 320,
@@ -38,27 +38,35 @@ $(document).ready(function() {
     document.getElementById("my_image").style.width = "320";
     document.getElementById("my_image").style.height = "240";
 
-    //Attach webcam to DOM element
-    Webcam.attach('#my_camera');
+    if (!Webcam.getElementById === undefined) {
+        //Attach webcam to DOM element
+        Webcam.attach('#my_camera');
+    }
+    else {
+        alert("No Camera Found!");
+    }
 });
 
 
 //Saves webcam image to a canvas
 function takeSnapshot() {
     //var canvas = document.getElementById("my_canvas");
-    Webcam.snap(function(data_uri) {
-        document.getElementById('my_image').innerHTML = "<img id='img_me' src='" + data_uri + "'/>";
-        hasFace();
-    });
-
-    document.getElementById("img_me").style.border = "thick red solid";
-
+    if (!Webcam.getElementById === undefined) {
+        Webcam.snap(function(data_uri) {
+            document.getElementById('my_image').innerHTML = "<img id='img_me' src='" + data_uri + "'/>";
+            document.getElementById("img_me").style.border = "thick red solid";
+            hasFace();
+        });
+    }
+    else {
+        alert("No Camera!");
+    }
 }
 
 //Attempt to submit image in canvas to Kairos for enrollment
 function attemptToEnroll() {
     //Check that User has correct data in fields
-    
+
     //Get that data
     var user = document.getElementById('netID').value;
 
@@ -68,7 +76,7 @@ function attemptToEnroll() {
 
 //Attempt to submit image in canvas to Kairos for check in
 function attemptToCheckIn() {
-    
+
     //Make call to Kairos
     hasFace(null, checkFace, GALLERY);
 }
@@ -109,7 +117,7 @@ function enrollFace(face, classID, userID) {
 
         var data = JSON.parse(response.responseText);
         var status = data.images[0].transaction.status;
-        if(status === "success") {
+        if (status === "success") {
             var subject_id = data.images[0].transaction.subject_id
             var student_name = document.getElementById('student_name').value
             console.log(subject_id + " " + student_name);
