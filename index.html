@@ -44,30 +44,14 @@
         </div>
     </div>
 
-    <script src="js/jquery-3.1.0.min.js"></script>
-    <script src="js/webcam.js"></script>
-    <script type="text/javascript" src="js/kairos.js"></script>
-    <script type="text/javascript" src="js/track/tracking.js"></script>
-    <script type="text/javascript" src="js/track/face.js"></script>
+    <script src="js/libs/jquery-3.1.0.min.js"></script>
+    <script src="js/libs/webcam.js"></script>
+    <script type="text/javascript" src="js/libs/kairos.js"></script>
+    <script type="text/javascript" src="js/libs/track/tracking.js"></script>
+    <script type="text/javascript" src="js/libs/track/face.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
     <!--<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-database.js"></script>-->
-    <script src="js/Firebase.js"></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function() {
-            jQuery('.tabs .tab-links a').on('click', function(e) {
-                var currentAttrValue = jQuery(this).attr('href');
-
-                // Show/Hide Tabs
-                //jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
-                jQuery('.tabs ' + currentAttrValue).fadeIn(400).siblings().hide();
-
-                // Change/remove current tab to active
-                jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
-
-                e.preventDefault();
-            });
-        });
-    </script>
+    <script src="js/libs/Firebase.js"></script>
 
 </body>
