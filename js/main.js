@@ -5,6 +5,8 @@ global Webcam, tracking, $, Kairos
 //Handles calls to Kairos Server
 var kairos = new Kairos();
 
+var GALLERY = "class1";
+
 $(document).ready(function() {
     // var canvas = document.getElementById("my_canvas");
     // canvas.height = 240;
@@ -47,7 +49,6 @@ function takeSnapshot() {
     Webcam.snap(function(data_uri) {
         document.getElementById('my_image').innerHTML = "<img id='img_me' src='" + data_uri + "'/>";
         hasFace();
-
     });
 
     document.getElementById("img_me").style.border = "thick red solid";
@@ -56,14 +57,20 @@ function takeSnapshot() {
 
 //Attempt to submit image in canvas to Kairos for enrollment
 function attemptToEnroll() {
+    //Check that User has correct data in fields
+    
+    //Get that data
+    var user = document.getElementById('netID').value;
 
-    hasFace(null, enrollFace, "test1", "tagger94");
+    //Make call to Kairos
+    hasFace(null, enrollFace, GALLERY, user);
 }
 
 //Attempt to submit image in canvas to Kairos for check in
 function attemptToCheckIn() {
-
-    hasFace(null, checkFace, "test1");
+    
+    //Make call to Kairos
+    hasFace(null, checkFace, GALLERY);
 }
 
 //Check if there is a face. if found set to Kairos
@@ -99,31 +106,57 @@ function enrollFace(face, classID, userID) {
     var to_use = face.substring(23, face.length);
     kairos.enroll(to_use, classID, userID, function(response) {
         console.log(response);
-        
+
+        var data = JSON.parse(response.responseText);
+        var status = data.images[0].transaction.status;
+        if(status === "success") {
+            var subject_id = data.images[0].transaction.subject_id
+            var student_name = document.getElementById('student_name').value
+            console.log(subject_id + " " + student_name);
+            writeUserData(subject_id, student_name);
+            //send info to database
+        }
     });
 }
 
 function checkFace(face, classID) {
     console.log("submitting face for verification");
-    
+
     var junk = 'data:image/jpeg;base64,';
     var to_use = face.substring(23, face.length);
     kairos.recognize(to_use, classID, function(response) {
-        //printResponse(response);
-        
+
+        //Convert data to object
         var data = JSON.parse(response.responseText);
-        var user = data.images[0].transaction.subject;
-        console.log(user);
-        
-        var p = document.getElementById('student_info');
-        p.innerHTML = "Student ID: " + user;
+        console.log(data);
+
+        //Verify user was found
+        if (data.images[0].transaction.success != "success") {
+            //Failure
+            console.log("ERROR");
+        }
+        else {
+            //User found
+
+            //Get user from object
+            var user = data.images[0].transaction.subject;
+
+            //Print to DOM the user info
+            retrieveUserData(user);
+            var p = document.getElementById('student_info');
+            p.innerHTML = "Student ID: " + user;
+
+            //Check user in
+            updateLastSeenDate(user);
+        }
+
     });
 }
 
 function printResponse(response) {
     console.log(response);
-        var data = JSON.parse(response.responseText);
-        console.log(data);
-        var user = data.images[0].transaction.subject;
-        console.log(user);
+    var data = JSON.parse(response.responseText);
+    console.log(data);
+    var user = data.images[0].transaction.subject;
+    console.log(user);
 }
