@@ -30,6 +30,9 @@ $(document).ready(function() {
 
     //Formatting
     document.getElementById("my_camera").style.border = "thick black solid";
+    document.getElementById("my_camera").style.width = "320";
+    document.getElementById("my_camera").style.height = "240";
+    document.getElementById("my_camera").style.border = "thick black solid";
     document.getElementById("my_image").style.width = "320";
     document.getElementById("my_image").style.height = "240";
 
