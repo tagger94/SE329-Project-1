@@ -110,7 +110,8 @@ function enrollFace(face, classID, userID) {
             var student_name = document.getElementById('student_name').value
             console.log(subject_id + " " + student_name);
             writeUserData(subject_id, student_name);
-            //send info to database
+            document.getElementById("message_to_enroller").innerHTML= "Enrollment succesful";
+
         }
     });
 }
@@ -125,7 +126,7 @@ function checkFace(face, classID) {
         //Convert data to object
         var data = JSON.parse(response.responseText);
         console.log(data);
-        
+
         var p = document.getElementById('student_info');
 
         //Verify user was found
@@ -142,20 +143,21 @@ function checkFace(face, classID) {
 
             //Print to DOM the user info
             var studentInfo = retrieveUserData(user);
-            
+
             var s = "Net ID: " + user + '<br>';
             s += "Name" + studentInfo.name + '<br>';
             s += "Previously Seen On: " + studentInfo.last_seen + '<br>';
             p.innerHTML = s;
 
             //Check user in
-            if(updateLastSeenDate(user)){
+            if (updateLastSeenDate(user)) {
                 p.innerHTML += "Successful Checkin!";
-            } else {
+            }
+            else {
                 p.innerHTML += "Error during checkin, please see professor"
                 console.log("ERROR: Database check in failed");
             }
-            
+
         }
 
     });
