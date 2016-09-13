@@ -29,6 +29,10 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
+    document.getElementById("border_1").style.border = "thick black solid";
+    document.getElementById("border_2").style.border = "thick black solid";
+
+
     Webcam.attach('#my_camera');
     Webcam.set({
         width: 320,
@@ -37,9 +41,9 @@ $(document).ready(function() {
 
 
 
-    //Formatting
-    document.getElementById("my_camera").style.border = "thick black solid";
-    document.getElementById("my_image").style.border = "thick black solid";
+    // //Formatting
+    // document.getElementById("my_camera").style.border = "thick black solid";
+    // document.getElementById("my_image").style.border = "thick black solid";
 });
 
 //Adds webcam image to the DOM
