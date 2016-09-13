@@ -7,10 +7,13 @@ var kairos = new Kairos();
 
 var GALLERY = "class1";
 
+
 $(document).ready(function() {
     // var canvas = document.getElementById("my_canvas");
     // canvas.height = 240;
     // canvas.width = 320;
+
+
 
     jQuery('.tabs .tab-links a').on('click', function(e) {
         var currentAttrValue = jQuery(this).attr('href');
@@ -24,30 +27,37 @@ $(document).ready(function() {
 
         e.preventDefault();
     });
-    //Set up webcam's size
-    Webcam.set({
-        width: 320,
-        height: 240
-    });
+
+    //Check for device.
+    if (DetectRTC.hasWebcam()) {
+        Webcam.attach('#my_camera');
+        Webcam.set({
+            width: 320,
+            height: 240
+        });
+    }
+    else {
+        alert("No Camera!");
+    }
+
 
     //Formatting
     document.getElementById("my_camera").style.border = "thick black solid";
-    document.getElementById("my_camera").style.width = "320";
-    document.getElementById("my_camera").style.height = "240";
     document.getElementById("my_image").style.border = "thick black solid";
-    document.getElementById("my_image").style.width = "320";
-    document.getElementById("my_image").style.height = "240";
-    Webcam.attach('#my_camera');
 });
 
-
-//Saves webcam image to a canvas
+//Adds webcam image to the DOM
 function takeSnapshot() {
-    Webcam.snap(function(data_uri) {
-        document.getElementById('my_image').innerHTML = "<img id='img_me' src='" + data_uri + "'/>";
-        document.getElementById("img_me").style.border = "thick red solid";
-        hasFace();
-    });
+    if (DetectRTC.hasWebcam()) {
+        Webcam.snap(function(data_uri) {
+            document.getElementById('my_image').innerHTML = "<img id='img_me' src='" + data_uri + "'/>";
+            document.getElementById("img_me").style.border = "thick red solid";
+            hasFace();
+        });
+    }
+    else {
+        alert("No Camera!");
+    }
 }
 
 //Attempt to submit image in canvas to Kairos for enrollment

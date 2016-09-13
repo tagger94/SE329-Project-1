@@ -8,7 +8,7 @@
         <div width=100% style="margin-left: 0px;margin-right: 0px;">
             <h1><u>Attendance Tracker</u></h1>
             <br>
-            <img src="resources/attendance_logo.jpg" alt="Banner Image" />
+            <img src="resources/attendance_logo.jpg" alt="BANNER ERROR!" />
             <hr class="header-bar">
         </div>
     </header>
@@ -16,18 +16,22 @@
         <tr>
             <td>
                 <p>Live Camera:</p>
-                <div id="my_camera"> </div>
+                <div id="my_camera">
+                    <p id="no_cam">No Camera!</p>
+                </div>
+            </td>
+            <td>
+                <button onClick='takeSnapshot()'>Take Snapshot</button>
             </td>
             <td>
                 <p>Snapshot:</p>
                 <div id="my_image">
-                    <p id="no_snapshot">No Snapshot!</p>
+                    <p id="no_snapshot">No Snapshot Yet!</p>
                 </div>
             </td>
         </tr>
     </table>
 
-    <button onClick='takeSnapshot()'>Take Snapshot</button>
 
     <div class="tabs">
         <ul class="tab-links">
@@ -57,13 +61,15 @@
     </div>
 
     <script src="js/libs/jquery-3.1.0.min.js"></script>
-    <script src="js/libs/webcam.js"></script>
     <script src="js/libs/jquery.webcam.min.js"></script>
+    <script src="js/libs/webcam.js"></script>
+    <script src="js/libs/DetectRTC.min.js"></script>
     <script type="text/javascript" src="js/libs/kairos.js"></script>
     <script type="text/javascript" src="js/libs/track/tracking.js"></script>
     <script type="text/javascript" src="js/libs/track/face.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
     <script src="js/libs/Firebase.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
 
 </body>

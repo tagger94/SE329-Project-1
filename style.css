@@ -44,19 +44,20 @@ p {
 
 hr {
     height: 10px;
-	border: 0;
-	box-shadow: 0 10px 10px -10px #8c8b8b inset;
+    border: 0;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
 }
 
 
 /*----- Border for images -----*/
 
-#my_camera, #my_image {
+#my_camera,
+#my_image {
     border-radius: 25px;
     background: #FFE4B5;
     padding: 20px;
-    width: 200px;
-    height: 150px;
+    width: 320px;
+    height: 240px;
 }
 
 
