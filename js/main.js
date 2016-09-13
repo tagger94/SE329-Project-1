@@ -75,7 +75,7 @@ function hasFace(face, onFound, classID, userID) {
     //console.log(img);
 
     //Set up Tracker
-    var tracker = new tracking.ObjectTracker('face', 'eye');
+    var tracker = new tracking.ObjectTracker('face');
 
     //Tell it to track image
     tracking.track(img, tracker);
@@ -125,40 +125,45 @@ function checkFace(face, classID) {
         //Convert data to object
         var data = JSON.parse(response.responseText);
         console.log(data);
-        
+
         var p = document.getElementById('student_info');
 
         //Verify user was found
-        if (data.images[0].transaction.success != "success") {
+        if (data.images[0].transaction.status != "success") {
             //Failure
             console.log("ERROR: Face not Recognized");
-            p.innerHTML = "Failed to recognize face. Please try again.";
+            p.innerHTML = ("Failed to recognize face. Please try again.");
         }
         else {
             //User found
 
             //Get user from object
             var user = data.images[0].transaction.subject;
-
-            //Print to DOM the user info
-            var studentInfo = retrieveUserData(user);
-            
-            var s = "Net ID: " + user + '<br>';
-            s += "Name" + studentInfo.name + '<br>';
-            s += "Previously Seen On: " + studentInfo.last_seen + '<br>';
-            p.innerHTML = s;
-
+            retrieveUserData(user, studentRecieved);
             //Check user in
-            if(updateLastSeenDate(user)){
-                p.innerHTML += "Successful Checkin!";
-            } else {
-                p.innerHTML += "Error during checkin, please see professor"
+            if (!updateLastSeenDate(user)) {
+                p.innerHTML = ("Error during checkin, please see professor");
                 console.log("ERROR: Database check in failed");
             }
-            
         }
 
     });
+}
+
+function studentRecieved(snapshot) {
+    //Print to DOM the user info
+    var studentInfo = snapshot.val();
+    //console.log(snapshot);
+    if (studentInfo.name !== "" && studentInfo.name !== null) {
+        console.log(studentInfo);
+        var p = document.getElementById('student_info');
+
+        var s = "";
+        //s = "Net ID: " + user + '<br>';
+        s += "Name: " + studentInfo.name + '<br>';
+        s += "Previously Seen On: " + studentInfo.last_seen + '<br>';
+        p.innerHTML = (s);
+    }
 }
 
 function printResponse(response) {

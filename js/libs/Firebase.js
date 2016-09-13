@@ -32,14 +32,10 @@ function writeUserData(netID, name) {
 }
 
 // Retrieves data from the Database. Organized by student id
-function retrieveUserData(netID){
+function retrieveUserData(netID, onCall){
     //var netID = document.getElementById("netID").value;
     var data = firebase.database().ref('users/Professor/' + netID);
-    data.on('value', function(snapshot) {
-    // snapshot.val() retrieves all data. To retrieve specific info call snapshot.val().name or snapshot.val().last_seen.
-    //console.log(snapshot.val());
-    return snapshot.val();
-    });
+    data.on('value', onCall);
 }
 
 // Tested and works. Change the path to the correct student id, then it is good to go.
