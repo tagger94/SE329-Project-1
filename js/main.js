@@ -110,7 +110,8 @@ function enrollFace(face, classID, userID) {
             var student_name = document.getElementById('student_name').value
             console.log(subject_id + " " + student_name);
             writeUserData(subject_id, student_name);
-            //send info to database
+            document.getElementById("message_to_enroller").innerHTML = "Enrollment succesful";
+
         }
     });
 }
