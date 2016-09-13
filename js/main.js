@@ -15,11 +15,11 @@ $(document).ready(function() {
     // canvas.width = 320;
 
 
-
+    // Setup tabs
     jQuery('.tabs .tab-links a').on('click', function(e) {
         var currentAttrValue = jQuery(this).attr('href');
 
-        // Show/Hide Tabs
+        // Show/Hide Tabs with Fade
         //jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
         jQuery('.tabs ' + currentAttrValue).fadeIn(400).siblings().hide();
 
@@ -98,7 +98,7 @@ function hasFace(face, onFound, classID, userID) {
 function enrollFace(face, classID, userID) {
     console.log("submitting face for enrollment");
 
-    var junk = 'data:image/jpeg;base64,';
+    //var junk = 'data:image/jpeg;base64,';
     var to_use = face.substring(23, face.length);
     kairos.enroll(to_use, classID, userID, function(response) {
         console.log(response);
@@ -118,18 +118,21 @@ function enrollFace(face, classID, userID) {
 function checkFace(face, classID) {
     console.log("submitting face for verification");
 
-    var junk = 'data:image/jpeg;base64,';
+    //var junk = 'data:image/jpeg;base64,';
     var to_use = face.substring(23, face.length);
     kairos.recognize(to_use, classID, function(response) {
 
         //Convert data to object
         var data = JSON.parse(response.responseText);
         console.log(data);
+        
+        var p = document.getElementById('student_info');
 
         //Verify user was found
         if (data.images[0].transaction.success != "success") {
             //Failure
-            console.log("ERROR");
+            console.log("ERROR: Face not Recognized");
+            p.innerHTML = "Failed to recognize face. Please try again.";
         }
         else {
             //User found
@@ -138,12 +141,21 @@ function checkFace(face, classID) {
             var user = data.images[0].transaction.subject;
 
             //Print to DOM the user info
-            retrieveUserData(user);
-            var p = document.getElementById('student_info');
-            p.innerHTML = "Student ID: " + user;
+            var studentInfo = retrieveUserData(user);
+            
+            var s = "Net ID: " + user + '<br>';
+            s += "Name" + studentInfo.name + '<br>';
+            s += "Previously Seen On: " + studentInfo.last_seen + '<br>';
+            p.innerHTML = s;
 
             //Check user in
-            updateLastSeenDate(user);
+            if(updateLastSeenDate(user)){
+                p.innerHTML += "Successful Checkin!";
+            } else {
+                p.innerHTML += "Error during checkin, please see professor"
+                console.log("ERROR: Database check in failed");
+            }
+            
         }
 
     });
