@@ -1,10 +1,17 @@
 <head>
+    <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
-    <h1>Student Lookup</h1>
-
+    <header class="top-header" role="banner">
+        <div width=100% style="margin-left: 0px;margin-right: 0px;">
+            <h1><u>Attendance Tracker</u></h1>
+            <br>
+            <img src="resources/attendance_logo.jpg" alt="Banner Image" />
+            <hr class="header-bar">
+        </div>
+    </header>
     <table style="width: 100%">
         <tr>
             <td>
@@ -13,7 +20,9 @@
             </td>
             <td>
                 <p>Snapshot:</p>
-                <div id="my_image"> </div>
+                <div id="my_image">
+                    <p id="no_snapshot">No Snapshot!</p>
+                </div>
             </td>
         </tr>
     </table>
