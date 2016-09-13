@@ -45,18 +45,28 @@
         <div class="tab-content">
             <div id="tab1" class="tab active">
                 <button onClick='attemptToCheckIn()'>Check In</button>
+                <div>
+                    <p id='student_info'></p>
+                </div>
             </div>
 
             <div id="tab2" class="tab">
-                <h2>Add New User:</h2>
-                <form>
-                    Student Name:<br>
-                    <input type="text" id="student_name"> <br> ID:
-                    <br>
-                    <input type="text" id="netID">
+                <h2>Add New Student:</h2>
+                <div>
+                    <form>
+                        Student Name:<br>
+                        <input type="text" id="student_name">
+                        <br> Net ID:<br>
+                        <input type="text" id="netID">
 
-                </form>
-                <button onClick='attemptToEnroll()'>Enroll Face</button>
+                    </form>
+                    <button onClick='attemptToEnroll()'>Enroll Face</button>
+                </div>
+                <div>
+                    <p id='message_to_enroller'></p>
+                </div>
+
+
             </div>
 
         </div>

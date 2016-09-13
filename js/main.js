@@ -15,11 +15,11 @@ $(document).ready(function() {
     // canvas.width = 320;
 
 
-
+    // Setup tabs
     jQuery('.tabs .tab-links a').on('click', function(e) {
         var currentAttrValue = jQuery(this).attr('href');
 
-        // Show/Hide Tabs
+        // Show/Hide Tabs with Fade
         //jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
         jQuery('.tabs ' + currentAttrValue).fadeIn(400).siblings().hide();
 
@@ -79,7 +79,7 @@ function hasFace(face, onFound, classID, userID) {
     //console.log(img);
 
     //Set up Tracker
-    var tracker = new tracking.ObjectTracker('face', 'eye');
+    var tracker = new tracking.ObjectTracker('face');
 
     //Tell it to track image
     tracking.track(img, tracker);
@@ -102,7 +102,7 @@ function hasFace(face, onFound, classID, userID) {
 function enrollFace(face, classID, userID) {
     console.log("submitting face for enrollment");
 
-    var junk = 'data:image/jpeg;base64,';
+    //var junk = 'data:image/jpeg;base64,';
     var to_use = face.substring(23, face.length);
     kairos.enroll(to_use, classID, userID, function(response) {
         console.log(response);
@@ -114,7 +114,8 @@ function enrollFace(face, classID, userID) {
             var student_name = document.getElementById('student_name').value
             console.log(subject_id + " " + student_name);
             writeUserData(subject_id, student_name);
-            //send info to database
+            document.getElementById("message_to_enroller").innerHTML = "Enrollment succesful";
+
         }
     });
 }
@@ -122,7 +123,7 @@ function enrollFace(face, classID, userID) {
 function checkFace(face, classID) {
     console.log("submitting face for verification");
 
-    var junk = 'data:image/jpeg;base64,';
+    //var junk = 'data:image/jpeg;base64,';
     var to_use = face.substring(23, face.length);
     kairos.recognize(to_use, classID, function(response) {
 
@@ -130,27 +131,44 @@ function checkFace(face, classID) {
         var data = JSON.parse(response.responseText);
         console.log(data);
 
+        var p = document.getElementById('student_info');
+
         //Verify user was found
-        if (data.images[0].transaction.success != "success") {
+        if (data.images[0].transaction.status != "success") {
             //Failure
-            console.log("ERROR");
+            console.log("ERROR: Face not Recognized");
+            p.innerHTML = ("Failed to recognize face. Please try again.");
         }
         else {
             //User found
 
             //Get user from object
             var user = data.images[0].transaction.subject;
-
-            //Print to DOM the user info
-            retrieveUserData(user);
-            var p = document.getElementById('student_info');
-            p.innerHTML = "Student ID: " + user;
-
+            retrieveUserData(user, studentRecieved);
             //Check user in
-            updateLastSeenDate(user);
+            if (!updateLastSeenDate(user)) {
+                p.innerHTML = ("Error during checkin, please see professor");
+                console.log("ERROR: Database check in failed");
+            }
         }
 
     });
+}
+
+function studentRecieved(snapshot) {
+    //Print to DOM the user info
+    var studentInfo = snapshot.val();
+    //console.log(snapshot);
+    if (studentInfo.name !== "" && studentInfo.name !== null) {
+        console.log(studentInfo);
+        var p = document.getElementById('student_info');
+
+        var s = "";
+        //s = "Net ID: " + user + '<br>';
+        s += "Name: " + studentInfo.name + '<br>';
+        s += "Previously Seen On: " + studentInfo.last_seen + '<br>';
+        p.innerHTML = (s);
+    }
 }
 
 function printResponse(response) {
