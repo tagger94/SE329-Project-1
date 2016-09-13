@@ -7,6 +7,7 @@ var kairos = new Kairos();
 
 var GALLERY = "class1";
 
+// Last time updated: 2016-09-09 2:36:51 PM UTC
 
 $(document).ready(function() {
     // var canvas = document.getElementById("my_canvas");
@@ -28,17 +29,12 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
-    //Check for device.
-    if (DetectRTC.hasWebcam()) {
-        Webcam.attach('#my_camera');
-        Webcam.set({
-            width: 320,
-            height: 240
-        });
-    }
-    else {
-        alert("No Camera!");
-    }
+    Webcam.attach('#my_camera');
+    Webcam.set({
+        width: 320,
+        height: 240
+    });
+
 
 
     //Formatting
@@ -48,16 +44,11 @@ $(document).ready(function() {
 
 //Adds webcam image to the DOM
 function takeSnapshot() {
-    if (DetectRTC.hasWebcam()) {
-        Webcam.snap(function(data_uri) {
-            document.getElementById('my_image').innerHTML = "<img id='img_me' src='" + data_uri + "'/>";
-            document.getElementById("img_me").style.border = "thick red solid";
-            hasFace();
-        });
-    }
-    else {
-        alert("No Camera!");
-    }
+    Webcam.snap(function(data_uri) {
+        document.getElementById('my_image').innerHTML = "<img id='img_me' src='" + data_uri + "'/>";
+    });
+    document.getElementById("img_me").style.border = "thick red solid";
+    hasFace();
 }
 
 //Attempt to submit image in canvas to Kairos for enrollment
