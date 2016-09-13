@@ -16,22 +16,25 @@
         <tr>
             <td>
                 <p>Live Camera:</p>
-                <div id="my_camera">
-                    <p id="no_cam">No Camera!</p>
+                <div id="border_1">
+
+                    <div id="my_camera">
+                        <p id="no_cam">No Camera!</p>
+                    </div>
                 </div>
+
             </td>
+            <td><button onClick='takeSnapshot()'>Take Snapshot ></button></td>
             <td>
-                <p>Snapshot:</p>
-                <div id="my_image">
-                    <p id="no_snapshot">No Snapshot Yet!</p>
+                <p>Snapshot: (Has face: Green No face: Red)</p>
+                <div id="border_2">
+                    <div id="my_image">
+                        <p id="no_snapshot">No Snapshot Yet!</p>
+                    </div>
                 </div>
             </td>
         </tr>
     </table>
-
-    <button onClick='takeSnapshot()'>Take Snapshot</button>
-
-
 
     <div class="tabs">
         <ul class="tab-links">
